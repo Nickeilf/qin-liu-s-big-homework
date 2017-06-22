@@ -1,0 +1,25 @@
+{   "id": 64,
+    "username": "nanguangtailang",
+    "name": "南光太郎",
+    "type": "student",
+    "avatar": null,
+    "gender": "male",
+    "email": "ngtl@126.com",
+    "schoolId": 1,
+    "gitId": 1,
+    "number": null,
+    "groupId": 0,
+    "gitUsername": null
+}
+
+{
+    "id": 1,
+    "username": "liuqin",
+    "name": "刘钦",
+    "type": "teacher",
+    "avatar": null,
+    "gender": "male",
+    "email": "lq@nju.edu.cn",
+    "schoolId": 0,
+    "authority": 1
+}
