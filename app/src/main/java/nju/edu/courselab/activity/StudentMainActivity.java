@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,25 +16,29 @@ import android.widget.Toast;
 import nju.edu.courselab.R;
 import nju.edu.courselab.View.CircleImageView;
 
-public class TeacherMainActivity extends AppCompatActivity implements View.OnClickListener{
-
+/**
+ * Created by nick on 2017/6/28.
+ */
+public class StudentMainActivity extends AppCompatActivity implements View.OnClickListener{
     private CircleImageView avatar;
     private TextView username;
     private TextView name;
     private TextView gender;
     private TextView email;
+    private TextView number;
+    private TextView gitUsername;
 
     private String userName;
     private String password;
+    private String studentId;
 
-    private LinearLayout myclass;
     private LinearLayout mycourse;
     private LinearLayout myassignment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_teacher);
+        setContentView(R.layout.activity_main_student);
         statusSet();
 
 
@@ -49,8 +53,12 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         name.setText((String)bundle.get("name"));
         gender.setText((String)bundle.get("gender"));
         email.setText((String)bundle.get("email"));
+        number.setText(bundle.getString("number"));
+        gitUsername.setText(bundle.getString("git_username"));
         userName=(String) bundle.get("username");
         password =(String)bundle.get("password");
+        studentId = bundle.getString("student_id");
+
     }
 
     private void statusSet() {
@@ -77,12 +85,12 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         name= (TextView) findViewById(R.id.name_text);
         gender= (TextView) findViewById(R.id.gender);
         email= (TextView) findViewById(R.id.email);
+        number= (TextView) findViewById(R.id.number);
+        gitUsername = (TextView) findViewById(R.id.git_username);
 
-        myclass= (LinearLayout) findViewById(R.id.class_column);
         mycourse= (LinearLayout) findViewById(R.id.course_column);
         myassignment= (LinearLayout) findViewById(R.id.assignment_column);
 
-        myclass.setOnClickListener(this);
         mycourse.setOnClickListener(this);
         myassignment.setOnClickListener(this);
     }
@@ -90,17 +98,6 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.class_column:
-                // 班级界面
-                Toast.makeText(this,"进入班级",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString("username",userName);
-                bundle.putString("password",password);
-                intent.putExtras(bundle);
-                intent.setClass(this, TeacherClassActivity.class);
-                startActivity(intent);
-                break;
             case R.id.course_column:
                 // 课程界面
                 Toast.makeText(this,"进入课程",Toast.LENGTH_SHORT).show();
@@ -113,7 +110,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent2);
                 break;
             case R.id.assignment_column:
-                 // 作业界面
+                // 作业界面
                 Toast.makeText(this,"进入课程",Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent();
                 Bundle bundle3 = new Bundle();

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import nju.edu.courselab.R;
+import nju.edu.courselab.bean.Student;
 import nju.edu.courselab.bean.Teacher;
 import nju.edu.courselab.bean.User;
 import nju.edu.courselab.dataService.LoginDataService;
@@ -130,11 +131,27 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     bundle.putString("name",user.getName());
                     bundle.putString("gender",user.getGender());
                     bundle.putString("email",user.getEmail());
+                    bundle.putString("password",et_pass.getText().toString());
                     intent.putExtras(bundle);
-                    intent.setClass(LoginActivity.this, TeacherMainActivity.class);
+                    intent.setClass(this, TeacherMainActivity.class);
                     startActivity(intent);
                 }else{
                     //TODO 进入学生界面
+                    Student student = (Student) user;
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("avatar", student.getAvatar());
+                    bundle.putString("username",student.getUsername());
+                    bundle.putString("name",student.getName());
+                    bundle.putString("gender",student.getGender());
+                    bundle.putString("email",student.getEmail());
+                    bundle.putString("git_username",student.getGitUsername());
+                    bundle.putString("student_id",student.getId()+"");
+                    bundle.putString("number",student.getNumber()+"");
+                    bundle.putString("password",et_pass.getText().toString());
+                    intent.putExtras(bundle);
+                    intent.setClass(this, StudentMainActivity.class);
+                    startActivity(intent);
                 }
                 Toast.makeText(this,"登陆成功",Toast.LENGTH_SHORT).show();
             }
