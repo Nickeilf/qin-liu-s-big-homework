@@ -68,6 +68,20 @@ public class TeacherStudentActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Student student = students.get(position);
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("avatar", student.getAvatar());
+        bundle.putString("username",student.getUsername());
+        bundle.putString("name",student.getName());
+        bundle.putString("gender",student.getGender());
+        bundle.putString("email",student.getEmail());
+        bundle.putString("git_username",student.getGitUsername());
+        bundle.putString("student_id",student.getId()+"");
+        bundle.putString("number",student.getNumber()+"");
+        bundle.putString("password",password);
+        intent.putExtras(bundle);
+        intent.setClass(this, StudentSingleActivity.class);
+        startActivity(intent);
     }
 }

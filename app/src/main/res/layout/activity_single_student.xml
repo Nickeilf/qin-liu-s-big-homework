@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/fake_status"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="@color/colorPrimaryDark">-->
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark">
+        <ImageView
+            android:id="@+id/student_single_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_chevron_left"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/base_padding"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:textSize="@dimen/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/base_padding"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhiteText"
+            android:text="学生详情"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/base_padding">
+
+        <nju.edu.courselab.View.CircleImageView
+            android:id="@+id/avartar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/avatar"
+            app:border_color="#FFF"
+            app:border_width="2dp" />
+
+        <TextView
+            android:id="@+id/username_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/avartar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_text_margin"
+            android:text="username"
+            android:textColor="@color/colorWhiteText"
+            android:textSize="36px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_text_margin"
+            android:text="名字"
+            android:textColor="@color/colorWhiteText"
+            android:textSize="36px" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@color/greyBackground"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/info_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_column_height"
+            android:background="#FFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:paddingLeft="@dimen/base_padding"
+                android:text="male"
+                android:textSize="36px" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/divider" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:gravity="center"
+                android:paddingLeft="@dimen/base_padding"
+                android:text="liuqin@nje.edu.cn"
+                android:textSize="36px" />
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"></View>
+        <LinearLayout
+            android:id="@+id/user_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_column_height"
+            android:background="#FFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:paddingLeft="@dimen/base_padding"
+                android:text="学号:141250066"
+                android:textSize="36px" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/divider" />
+
+            <TextView
+                android:id="@+id/git_username"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:gravity="center"
+                android:paddingLeft="@dimen/base_padding"
+                android:text="Git用户名:141250066"
+                android:textSize="36px" />
+
+        </LinearLayout>
+
+        <!--分割线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"></View>
+        <!--留白-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_gap">
+        </View>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

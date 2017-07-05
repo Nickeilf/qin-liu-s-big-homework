@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import nju.edu.courselab.View.CircleImageView;
 /**
  * Created by nick on 2017/6/28.
  */
-public class StudentMainActivity extends AppCompatActivity implements View.OnClickListener{
+public class StudentSingleActivity extends AppCompatActivity implements View.OnClickListener{
     private CircleImageView avatar;
     private TextView username;
     private TextView name;
@@ -27,18 +28,16 @@ public class StudentMainActivity extends AppCompatActivity implements View.OnCli
     private TextView email;
     private TextView number;
     private TextView gitUsername;
+    private ImageView back;
 
     private String userName;
     private String password;
     private String studentId;
 
-    private LinearLayout mycourse;
-    private LinearLayout myassignment;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_student);
+        setContentView(R.layout.activity_single_student);
         statusSet();
 
 
@@ -87,41 +86,15 @@ public class StudentMainActivity extends AppCompatActivity implements View.OnCli
         email= (TextView) findViewById(R.id.email);
         number= (TextView) findViewById(R.id.number);
         gitUsername = (TextView) findViewById(R.id.git_username);
+        back = (ImageView) findViewById(R.id.student_single_back);
 
-        mycourse= (LinearLayout) findViewById(R.id.course_column);
-        myassignment= (LinearLayout) findViewById(R.id.assignment_column);
-
-        mycourse.setOnClickListener(this);
-        myassignment.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.course_column:
-                // 课程界面
-                Toast.makeText(this,"进入课程",Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent();
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("username",userName);
-                bundle2.putString("password",password);
-                intent2.putExtras(bundle2);
-                intent2.setClass(this, TeacherCourseActivity.class);
-                startActivity(intent2);
-                break;
-            case R.id.assignment_column:
-                // 作业界面
-                Toast.makeText(this,"进入作业",Toast.LENGTH_SHORT).show();
-                Intent intent3 = new Intent();
-                Bundle bundle3 = new Bundle();
-                bundle3.putString("username",userName);
-                bundle3.putString("password",password);
-                bundle3.putString("student_id",studentId);
-                intent3.putExtras(bundle3);
-                intent3.setClass(this, StudentAssignmentActivity.class);
-                startActivity(intent3);
-                break;
-
+        if (v.getId()==R.id.student_single_back){
+            finish();
         }
     }
 }
