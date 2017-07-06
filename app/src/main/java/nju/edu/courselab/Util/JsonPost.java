@@ -1,5 +1,7 @@
 package nju.edu.courselab.Util;
 
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -27,14 +29,16 @@ import okhttp3.Response;
 public class JsonPost {
 
     public static class PostJsonThread extends Thread{
-        String response ="";
-        String path;
-        String json;
-        boolean ready=false;
+        private String response ="";
+        private String path;
+        private String json;
+        private boolean ready=false;
+        private Handler handler;
 
-        public PostJsonThread(String path, String json) {
+        public PostJsonThread(String path, String json,Handler handler) {
             this.path = path;
             this.json = json;
+            this.handler=handler;
         }
 
         @Override
@@ -56,8 +60,19 @@ public class JsonPost {
             try {
                 Response re = client.newCall(request).execute();
                 response = re.body().string();
+
+                System.out.println("!!!");
+
+                Message message = new Message();
+                message.what = 1;
+                message.obj = response;
+                handler.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
+                Message message = new Message();
+                message.what = 0;
+                message.obj = "fail";
+                handler.sendMessage(message);
             }finally {
                 ready=true;
             }

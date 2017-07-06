@@ -50,7 +50,10 @@ public class HomeworkDetailActivity extends AppCompatActivity implements View.On
         status= (TextView) findViewById(R.id.detail_status);
 
         title.setText(data.getTitle());
-        description.setText(data.getDescription());
+        if (data.getDescription()!=null)
+            description.setText(data.getDescription());
+        else
+            description.setText("没有描述");
         start.setText(data.getStartAt());
         end.setText(data.getEndAt());
         courseNum.setText("课程号："+data.getCourse());

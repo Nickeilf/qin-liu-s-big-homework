@@ -53,7 +53,12 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         difficulty.setText("难度："+question.getDifficulty());
         type.setText("类型："+question.getType());
         creator.setText("创建者:"+question.getCreator().getName());
-        url.setText(question.getGitUrl());
+        if (question.getGitUrl()!=null) {
+            url.setText(question.getGitUrl());
+        }else{
+            url.setText("没有Git链接");
+        }
+
 
 
         return userListItem;

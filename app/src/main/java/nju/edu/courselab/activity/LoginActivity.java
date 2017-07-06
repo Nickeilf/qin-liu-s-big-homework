@@ -14,7 +14,13 @@ import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import nju.edu.courselab.R;
+import nju.edu.courselab.Util.AsycThread;
+import nju.edu.courselab.Util.JsonPost;
+import nju.edu.courselab.bean.Login;
 import nju.edu.courselab.bean.Student;
 import nju.edu.courselab.bean.Teacher;
 import nju.edu.courselab.bean.User;
@@ -23,6 +29,76 @@ import nju.edu.courselab.dataService.impl.LoginDataServiceImpl;
 
 public class LoginActivity extends AppCompatActivity implements OnClickListener {
     private LoginDataService loginService;
+    private User user;
+
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            String response = (String) msg.obj;
+            switch (msg.what){
+                case 1:
+                    System.out.println("get result");
+                    Gson gson = new Gson();
+                    if(response.length()!=0) {
+                        if (response.contains("authority")) {
+                            //teacher
+                            Teacher teacher = gson.fromJson(response, Teacher.class);
+                            user = teacher;
+                        } else if (response.contains("gitId")){
+                            //student
+                            Student student = gson.fromJson(response, Student.class);
+                            user = student;
+                        }
+                        System.out.println(response);
+                    }
+                    actLogin();
+                    break;
+                case 0:
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    private void actLogin() {
+        if (user==null){
+            Toast.makeText(this,"密码错误",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"登陆成功",Toast.LENGTH_SHORT).show();
+            if (user instanceof Teacher){
+                //TODO 进入老师界面
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("avatar", user.getAvatar());
+                bundle.putString("username",user.getUsername());
+                bundle.putString("name",user.getName());
+                bundle.putString("gender",user.getGender());
+                bundle.putString("email",user.getEmail());
+                bundle.putString("password",et_pass.getText().toString());
+                intent.putExtras(bundle);
+                intent.setClass(this, TeacherMainActivity.class);
+                startActivity(intent);
+            }else{
+                //TODO 进入学生界面
+                Student student = (Student) user;
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("avatar", student.getAvatar());
+                bundle.putString("username",student.getUsername());
+                bundle.putString("name",student.getName());
+                bundle.putString("gender",student.getGender());
+                bundle.putString("email",student.getEmail());
+                bundle.putString("git_username",student.getGitUsername());
+                bundle.putString("student_id",student.getId()+"");
+                bundle.putString("number",student.getNumber()+"");
+                bundle.putString("password",et_pass.getText().toString());
+                intent.putExtras(bundle);
+                intent.setClass(this, StudentMainActivity.class);
+                startActivity(intent);
+            }
+
+        }
+    }
 
     // 声明控件对象
     private EditText et_name, et_pass;
@@ -33,25 +109,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     public final static int PASS_ERROR=0x03;      //注册完毕了
     public final static int NAME_ERROR=0x04;      //注册完毕了
 
-    final Handler UiMangerHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch(msg.what){
-                case LOGIN_ENABLE:
-                    mLoginButton.setClickable(true);
-                    break;
-                case LOGIN_UNABLE:
-                    mLoginButton.setClickable(false);
-                    break;
-                case PASS_ERROR:
 
-                    break;
-                case NAME_ERROR:
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
     private Button bt_username_clear;
     private Button bt_pwd_clear;
     private Button bt_pwd_eye;
@@ -118,43 +176,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         if (et_name.getText().length()==0||et_pass.getText().length()==0){
             Toast.makeText(this,"用户名或密码为空",Toast.LENGTH_SHORT).show();
         }else{
-            User user=loginService.login(et_name.getText().toString(),et_pass.getText().toString());
-            if (user==null){
-                Toast.makeText(this,"密码错误",Toast.LENGTH_SHORT).show();
-            }else{
-                if (user instanceof Teacher){
-                    //TODO 进入老师界面
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("avatar", user.getAvatar());
-                    bundle.putString("username",user.getUsername());
-                    bundle.putString("name",user.getName());
-                    bundle.putString("gender",user.getGender());
-                    bundle.putString("email",user.getEmail());
-                    bundle.putString("password",et_pass.getText().toString());
-                    intent.putExtras(bundle);
-                    intent.setClass(this, TeacherMainActivity.class);
-                    startActivity(intent);
-                }else{
-                    //TODO 进入学生界面
-                    Student student = (Student) user;
-                    Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("avatar", student.getAvatar());
-                    bundle.putString("username",student.getUsername());
-                    bundle.putString("name",student.getName());
-                    bundle.putString("gender",student.getGender());
-                    bundle.putString("email",student.getEmail());
-                    bundle.putString("git_username",student.getGitUsername());
-                    bundle.putString("student_id",student.getId()+"");
-                    bundle.putString("number",student.getNumber()+"");
-                    bundle.putString("password",et_pass.getText().toString());
-                    intent.putExtras(bundle);
-                    intent.setClass(this, StudentMainActivity.class);
-                    startActivity(intent);
-                }
-                Toast.makeText(this,"登陆成功",Toast.LENGTH_SHORT).show();
-            }
+            System.out.println("????");
+            JsonPost.PostJsonThread t = new JsonPost.PostJsonThread("http://115.29.184.56:8090/api/user/auth",new Gson().toJson(new Login(et_name.getText().toString(),et_pass.getText().toString())),handler);
+            t.start();
         }
     }
 

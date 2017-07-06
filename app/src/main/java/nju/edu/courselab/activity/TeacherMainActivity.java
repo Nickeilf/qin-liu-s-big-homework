@@ -37,8 +37,6 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_main_teacher);
         statusSet();
 
-
-
         init();
 
 

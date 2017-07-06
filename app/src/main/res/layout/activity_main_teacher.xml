@@ -22,12 +22,13 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/base_padding">
 
+
         <nju.edu.courselab.View.CircleImageView
             android:id="@+id/avartar"
             android:layout_width="96dp"
+            android:src="@drawable/avartar"
             android:layout_height="96dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/avatar"
             app:border_color="#FFF"
             app:border_width="2dp" />
 

@@ -1,5 +1,8 @@
 package nju.edu.courselab.Util;
 
+import android.os.Handler;
+import android.os.Message;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
@@ -10,12 +13,14 @@ import okhttp3.Response;
  * Created by nick on 2017/6/23.
  */
 public class AsycThread extends Thread {
-    boolean ready = false;
-    Request request;
-    String response;
+    private boolean ready = false;
+    private Request request;
+    private String response;
+    private Handler handler;
 
     public AsycThread(Request request) {
         this.request = request;
+        this.handler=handler;
     }
 
     @Override
@@ -25,8 +30,17 @@ public class AsycThread extends Thread {
         try {
             Response res = client.newCall(request).execute();
             response = res.body().string();
+
+//            Message message = new Message();
+//            message.what = 1;
+//            message.obj = response;
+//            handler.sendMessage(message);
         } catch (IOException e) {
             e.printStackTrace();
+//            Message message = new Message();
+//            message.what = 0;
+//            message.obj = "fail";
+//            handler.sendMessage(message);
         } finally {
             ready = true;
         }

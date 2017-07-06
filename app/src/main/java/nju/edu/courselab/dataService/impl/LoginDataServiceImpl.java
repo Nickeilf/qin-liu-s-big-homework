@@ -26,7 +26,7 @@ public class LoginDataServiceImpl implements LoginDataService {
     @Override
     public User login(String username, String password) {
         System.out.println(username+"  "+password);
-        JsonPost.PostJsonThread t = new JsonPost.PostJsonThread(path,new Gson().toJson(new Login(username,password)));
+        JsonPost.PostJsonThread t = new JsonPost.PostJsonThread(path,new Gson().toJson(new Login(username,password)),new Handler());
         t.start();
         System.out.println("thread start");
         while(!t.isReady()){
